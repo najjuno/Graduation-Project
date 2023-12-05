@@ -1,0 +1,5 @@
+{
+  "\"env_config\":{\n\t\t\t\t\t\t\"obs_filter\": \"my_normalized_relative_position\",\n\t\t\t\t\t\t\"reward_filter\": \"clip_reward\"\n\t\t\t\t\t},evaluation_interval": 20,
+  "env": "GridWorld_env",
+  "evaluation_num_episodes": 100
+}

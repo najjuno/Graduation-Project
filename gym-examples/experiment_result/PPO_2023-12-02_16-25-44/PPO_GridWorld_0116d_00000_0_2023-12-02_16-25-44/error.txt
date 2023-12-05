@@ -1,0 +1,82 @@
+Failure # 1 (occurred at 2023-12-02_16-25-48)
+The actor died because of an error raised in its creation task, [36mray::PPO.__init__()[39m (pid=31470, ip=127.0.0.1, actor_id=25c6009126e69a12514757a701000000, repr=PPO)
+  File "/Users/hongjihye/anaconda3/lib/python3.11/site-packages/ray/rllib/evaluation/worker_set.py", line 227, in _setup
+    self.add_workers(
+  File "/Users/hongjihye/anaconda3/lib/python3.11/site-packages/ray/rllib/evaluation/worker_set.py", line 593, in add_workers
+    raise result.get()
+  File "/Users/hongjihye/anaconda3/lib/python3.11/site-packages/ray/rllib/utils/actor_manager.py", line 481, in __fetch_result
+    result = ray.get(r)
+             ^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^
+ray.exceptions.RayActorError: The actor died because of an error raised in its creation task, [36mray::RolloutWorker.__init__()[39m (pid=31477, ip=127.0.0.1, actor_id=5df4d4ab6bc26bde238afa2301000000, repr=<ray.rllib.evaluation.rollout_worker.RolloutWorker object at 0x11acb0a90>)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/hongjihye/anaconda3/lib/python3.11/site-packages/gymnasium/envs/registration.py", line 741, in make
+    env_spec = _find_spec(id)
+               ^^^^^^^^^^^^^^
+  File "/Users/hongjihye/anaconda3/lib/python3.11/site-packages/gymnasium/envs/registration.py", line 527, in _find_spec
+    _check_version_exists(ns, name, version)
+  File "/Users/hongjihye/anaconda3/lib/python3.11/site-packages/gymnasium/envs/registration.py", line 393, in _check_version_exists
+    _check_name_exists(ns, name)
+  File "/Users/hongjihye/anaconda3/lib/python3.11/site-packages/gymnasium/envs/registration.py", line 370, in _check_name_exists
+    raise error.NameNotFound(
+gymnasium.error.NameNotFound: Environment `GridWorld` doesn't exist.
+
+During handling of the above exception, another exception occurred:
+
+[36mray::RolloutWorker.__init__()[39m (pid=31477, ip=127.0.0.1, actor_id=5df4d4ab6bc26bde238afa2301000000, repr=<ray.rllib.evaluation.rollout_worker.RolloutWorker object at 0x11acb0a90>)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/hongjihye/anaconda3/lib/python3.11/site-packages/ray/rllib/evaluation/rollout_worker.py", line 397, in __init__
+    self.env = env_creator(copy.deepcopy(self.env_context))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/hongjihye/anaconda3/lib/python3.11/site-packages/ray/rllib/env/utils.py", line 169, in _gym_env_creator
+    raise EnvError(ERR_MSG_INVALID_ENV_DESCRIPTOR.format(env_descriptor))
+ray.rllib.utils.error.EnvError: The env string you provided ('GridWorld') is:
+a) Not a supported/installed environment.
+b) Not a tune-registered environment creator.
+c) Not a valid env class string.
+
+Try one of the following:
+a) For Atari support: `pip install gym[atari] autorom[accept-rom-license]`.
+   For VizDoom support: Install VizDoom
+   (https://github.com/mwydmuch/ViZDoom/blob/master/doc/Building.md) and
+   `pip install vizdoomgym`.
+   For PyBullet support: `pip install pybullet`.
+b) To register your custom env, do `from ray import tune;
+   tune.register('[name]', lambda cfg: [return env obj from here using cfg])`.
+   Then in your config, do `config['env'] = [name]`.
+c) Make sure you provide a fully qualified classpath, e.g.:
+   `ray.rllib.examples.env.repeat_after_me_env.RepeatAfterMeEnv`
+
+During handling of the above exception, another exception occurred:
+
+[36mray::PPO.__init__()[39m (pid=31470, ip=127.0.0.1, actor_id=25c6009126e69a12514757a701000000, repr=PPO)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/hongjihye/anaconda3/lib/python3.11/site-packages/ray/rllib/algorithms/algorithm.py", line 517, in __init__
+    super().__init__(
+  File "/Users/hongjihye/anaconda3/lib/python3.11/site-packages/ray/tune/trainable/trainable.py", line 161, in __init__
+    self.setup(copy.deepcopy(self.config))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/hongjihye/anaconda3/lib/python3.11/site-packages/ray/rllib/algorithms/algorithm.py", line 639, in setup
+    self.workers = WorkerSet(
+                   ^^^^^^^^^^
+  File "/Users/hongjihye/anaconda3/lib/python3.11/site-packages/ray/rllib/evaluation/worker_set.py", line 179, in __init__
+    raise e.args[0].args[2]
+ray.rllib.utils.error.EnvError: The env string you provided ('GridWorld') is:
+a) Not a supported/installed environment.
+b) Not a tune-registered environment creator.
+c) Not a valid env class string.
+
+Try one of the following:
+a) For Atari support: `pip install gym[atari] autorom[accept-rom-license]`.
+   For VizDoom support: Install VizDoom
+   (https://github.com/mwydmuch/ViZDoom/blob/master/doc/Building.md) and
+   `pip install vizdoomgym`.
+   For PyBullet support: `pip install pybullet`.
+b) To register your custom env, do `from ray import tune;
+   tune.register('[name]', lambda cfg: [return env obj from here using cfg])`.
+   Then in your config, do `config['env'] = [name]`.
+c) Make sure you provide a fully qualified classpath, e.g.:
+   `ray.rllib.examples.env.repeat_after_me_env.RepeatAfterMeEnv`

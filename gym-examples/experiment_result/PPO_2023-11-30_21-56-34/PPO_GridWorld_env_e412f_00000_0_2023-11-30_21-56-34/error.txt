@@ -1,0 +1,38 @@
+Failure # 1 (occurred at 2023-11-30_21-56-38)
+The actor died because of an error raised in its creation task, [36mray::PPO.__init__()[39m (pid=44644, ip=127.0.0.1, actor_id=50ab6906006d8d55c340604601000000, repr=PPO)
+  File "/Users/hongjihye/anaconda3/lib/python3.11/site-packages/ray/rllib/evaluation/worker_set.py", line 227, in _setup
+    self.add_workers(
+  File "/Users/hongjihye/anaconda3/lib/python3.11/site-packages/ray/rllib/evaluation/worker_set.py", line 593, in add_workers
+    raise result.get()
+  File "/Users/hongjihye/anaconda3/lib/python3.11/site-packages/ray/rllib/utils/actor_manager.py", line 481, in __fetch_result
+    result = ray.get(r)
+             ^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^
+ray.exceptions.RayActorError: The actor died because of an error raised in its creation task, [36mray::RolloutWorker.__init__()[39m (pid=44649, ip=127.0.0.1, actor_id=d1b0d581530260016d1ee0e101000000, repr=<ray.rllib.evaluation.rollout_worker.RolloutWorker object at 0x13f8cd010>)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/hongjihye/anaconda3/lib/python3.11/site-packages/ray/rllib/evaluation/rollout_worker.py", line 397, in __init__
+    self.env = env_creator(copy.deepcopy(self.env_context))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/hongjihye/project/gym-examples/grid_world_creator.py", line 21, in grid_world_creator
+    env = ClipReward(env)
+         ^^^^^^^^^^^^^^^
+TypeError: ClipReward.__init__() missing 2 required positional arguments: 'min_reward' and 'max_reward'
+
+During handling of the above exception, another exception occurred:
+
+[36mray::PPO.__init__()[39m (pid=44644, ip=127.0.0.1, actor_id=50ab6906006d8d55c340604601000000, repr=PPO)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/hongjihye/anaconda3/lib/python3.11/site-packages/ray/rllib/algorithms/algorithm.py", line 517, in __init__
+    super().__init__(
+  File "/Users/hongjihye/anaconda3/lib/python3.11/site-packages/ray/tune/trainable/trainable.py", line 161, in __init__
+    self.setup(copy.deepcopy(self.config))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/hongjihye/anaconda3/lib/python3.11/site-packages/ray/rllib/algorithms/algorithm.py", line 639, in setup
+    self.workers = WorkerSet(
+                   ^^^^^^^^^^
+  File "/Users/hongjihye/anaconda3/lib/python3.11/site-packages/ray/rllib/evaluation/worker_set.py", line 179, in __init__
+    raise e.args[0].args[2]
+TypeError: ClipReward.__init__() missing 2 required positional arguments: 'min_reward' and 'max_reward'
